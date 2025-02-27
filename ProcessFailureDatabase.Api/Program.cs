@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore.Identity;
 using ProcessFailureDatabase.Api.Data;
+using ProcessFailureDatabase.Api.Entities;
 using ProcessFailureDatabase.Api.Services;
 using Scalar.AspNetCore;
 
@@ -10,7 +12,7 @@ builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
-builder.Services.AddDbContext<InfrastructureContext>(options =>
+builder.Services.AddDbContext<ProcessFailureContext>(options =>
     options.UseNpgsql(
         builder.Configuration.GetConnectionString("DefaultConnection")));
 

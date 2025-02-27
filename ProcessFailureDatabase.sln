@@ -4,8 +4,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProcessFailureDatabase.Api"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProcessFailureDatabase.Shared", "ProcessFailureDatabase.Shared\ProcessFailureDatabase.Shared.csproj", "{09E9C894-F21B-44B2-8287-CF3B1AC711F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProcessFailureDatabase.Client", "ProcessFailureDatabase.Client\ProcessFailureDatabase.Client.csproj", "{6819AFE7-5C82-4CE1-BFA3-FC7C35C775D5}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,9 +18,5 @@ Global
 		{09E9C894-F21B-44B2-8287-CF3B1AC711F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{09E9C894-F21B-44B2-8287-CF3B1AC711F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{09E9C894-F21B-44B2-8287-CF3B1AC711F0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6819AFE7-5C82-4CE1-BFA3-FC7C35C775D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6819AFE7-5C82-4CE1-BFA3-FC7C35C775D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6819AFE7-5C82-4CE1-BFA3-FC7C35C775D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6819AFE7-5C82-4CE1-BFA3-FC7C35C775D5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

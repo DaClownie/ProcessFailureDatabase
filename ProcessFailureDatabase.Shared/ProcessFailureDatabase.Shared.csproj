@@ -7,16 +7,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.3.0" />
       <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.2" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.2" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="9.0.2" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Data\Models\" />
-      <Folder Include="Infrastructure\Models\" />
-      <Folder Include="User\Models\" />
     </ItemGroup>
 
 </Project>

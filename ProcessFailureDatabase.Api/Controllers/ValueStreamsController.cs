@@ -13,7 +13,7 @@ public class ValueStreamsController : ControllerBase
     public ActionResult<List<ValueStreamResponseDto>?> GetValueStreams()
     {
         // BUG: IMPLEMENT
-        List<ValueStreamResponseDto> values = new List<ValueStreamResponseDto>();
+        List<ValueStreamResponseDto> values = new();
 
         return values;
     }

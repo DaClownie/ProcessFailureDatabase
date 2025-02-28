@@ -1,0 +1,16 @@
+﻿@inherits LayoutComponentBase
+<div class="page">
+    <div class="sidebar">
+        <NavMenu />
+    </div>
+
+    <main>
+        <div class="px-4 top-row">
+            <a href="/scalar/v1" onclick="javascript:event.target.port=7088">Scalar</a>
+        </div>
+
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
+</div>

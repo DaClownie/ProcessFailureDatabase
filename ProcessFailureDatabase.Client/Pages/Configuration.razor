@@ -1,7 +1,13 @@
 @page "/Configuration"
+@using ProcessFailureDatabase.Client.Services
+@inject IValueStreamService ValueStreamService
 <h3>Configuration</h3>
 
 <h5>Value Streams</h5>
+<InputSelect class="form-control form-select" @bind-Value="ValueStreamService
+.ValueStreams">
+    
+</InputSelect>
 <h5>Lines</h5>
 <h5>Machine Types</h5>
 <h5>Stations</h5>

@@ -1,0 +1,43 @@
+@using System.Diagnostics.CodeAnalysis
+@using ProcessFailureDatabase.Shared.Models.Component
+@inherits InputBase<int>
+
+<div>
+    <label for="@Id">@Label</label>
+    <select id="@Id" class="form-control form-select" @bind="@Value">
+        <option value selected disabled> -- @DefaultValue --</option>
+        @foreach (var item in InputList)
+        {
+            <option value="@item.Id">@item.Name</option>
+        }
+    </select>
+</div>
+
+
+@code {
+    [Parameter]
+    public required string Id { get; set; }
+    [Parameter]
+    public required string Label { get; set; }
+    [Parameter]
+    public required string DefaultValue { get; set; }
+    [Parameter]
+    public required List<DropDownListObject> InputList { get; set; }
+
+    protected override bool TryParseValueFromString(string? value, out int result, [NotNullWhen(false)] out string? validationErrorMessage)
+    {
+        if (int.TryParse(value, out result))
+        {
+            validationErrorMessage = null;
+
+            // Trigger the ValueChanged event when binding happens
+            ValueChanged.InvokeAsync(result);
+            return true;
+        }
+
+        result = 0;
+        validationErrorMessage = "Invalid value";
+        return false;
+    }
+
+}

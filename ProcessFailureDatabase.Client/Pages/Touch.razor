@@ -1,0 +1,48 @@
+@page "/"
+@using ProcessFailureDatabase.Client.Components;
+@using ProcessFailureDatabase.Shared.Models.Component
+@using ProcessFailureDatabase.Shared.Models.Touch
+<h3>Create New Touch</h3>
+
+<EditForm Model="_touch" OnValidSubmit="HandleSubmit">
+    <PFDBDropDown Id="valueStream" 
+                  Label="Value Stream" 
+                  DefaultValue="Value Stream Name" 
+                  InputList="@_example"
+                  @bind-Value="@_touch.ValueStream"/>
+    <PFDBDropDown Id="line"
+                  Label="Line"
+                  DefaultValue="Line Name"
+                  InputList="@_example"
+                  @bind-Value="@_touch.Line"/>
+    <PFDBDropDown Id="machineType"
+                  Label="Machine Type"
+                  DefaultValue="Machine Type Name"
+                  InputList="@_example"
+                  @bind-Value="@_touch.MachineType"/>
+    <PFDBDropDown Id="station"
+                  Label="Station"
+                  DefaultValue="Station Name"
+                  InputList="@_example"
+                  @bind-Value="@_touch.Station"/>
+    <PFDBButton Type="submit" Text="Submit" />
+</EditForm>
+@code {
+    TouchRequestDto _touch = new();
+
+    private readonly List<DropDownListObject> _example =
+    [
+        new DropDownListObject(1, "bill"),
+        new DropDownListObject(2, "ted"),
+        new DropDownListObject(3, "sonny"),
+        new DropDownListObject(4, "cher")
+    ];
+
+
+    private Task HandleSubmit()
+    {
+        //TODO: Will require TouchService to be created before implementation
+        throw new NotImplementedException();
+    }
+
+}

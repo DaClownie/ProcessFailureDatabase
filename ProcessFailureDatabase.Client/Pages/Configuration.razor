@@ -1,17 +1,29 @@
 @page "/Configuration"
 @using ProcessFailureDatabase.Client.Services
+@using ProcessFailureDatabase.Shared.Models.ValueStream
 @inject IValueStreamService ValueStreamService
 <h3>Configuration</h3>
 
 <h5>Value Streams</h5>
-<InputSelect class="form-control form-select" @bind-Value="ValueStreamService
-.ValueStreams">
-    
-</InputSelect>
 <h5>Lines</h5>
 <h5>Machine Types</h5>
 <h5>Stations</h5>
 
 @code {
-    
+    private List<ValueStreamResponseDto> _orderedValueStreams = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadAndSortValueStreamsAsync();
+        ValueStreamService.OnChange += StateHasChanged;
+    }
+
+    // TODO: Possibly move this to the data call? When would I need the list unsorted?
+    private async Task LoadAndSortValueStreamsAsync()
+    {
+        await ValueStreamService.GetAllAsync();
+        _orderedValueStreams = ValueStreamService.ValueStreams
+            .OrderBy(vs => vs.Name)
+            .ToList();
+    }
 }

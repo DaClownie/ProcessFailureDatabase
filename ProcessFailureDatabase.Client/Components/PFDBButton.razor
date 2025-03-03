@@ -1,0 +1,26 @@
+<button type="@Type" @onclick="OnClick" class="@Css">
+    @if (Text != string.Empty)
+    {
+        @Text
+    }
+    else
+    {
+        <i class="@Icon"></i>
+    }
+</button>
+@code {
+    [Parameter] public string? Type { get; set; } = "button";
+    [Parameter] public string? Text { get; set; } = string.Empty;
+    [Parameter] public string? Icon { get; set; } = string.Empty;
+    [Parameter] public EventCallback OnClick { get; set; }
+    [Parameter] public ButtonLevel Level { get; set; } = ButtonLevel.Primary;
+
+    private string Css { get; set; } = string.Empty;
+
+    public enum ButtonLevel
+    {
+        Primary,
+        Seconday,
+        Danger
+    }
+}

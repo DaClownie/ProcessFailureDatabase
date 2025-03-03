@@ -1,29 +1,84 @@
-@page "/Configuration"
+@page "/configuration"
 @using ProcessFailureDatabase.Client.Services
+@using ProcessFailureDatabase.Shared.Models.Component
 @using ProcessFailureDatabase.Shared.Models.ValueStream
+@using ProcessFailureDatabase.Client.Components;
 @inject IValueStreamService ValueStreamService
 <h3>Configuration</h3>
-
-<h5>Value Streams</h5>
-<h5>Lines</h5>
-<h5>Machine Types</h5>
-<h5>Stations</h5>
+<div class="row">
+    <div class="col-md-4">
+        <h5>
+            Value Streams
+            <PFDBButton Icon="bi bi-plus-circle" OnClick="AddConfigComponent" />
+        </h5>
+        @foreach (var vs in _example)
+        {
+            <!-- make into a check box? Possibly with styling so its not a check -->
+            <div class="rounded border p-2 m-2">
+                @vs.Name
+            </div>
+        }
+        // render a new div here
+    </div>
+    <div class="col-md-4">
+        <h5>Lines</h5>
+        @foreach (var vs in _example)
+        {
+            <!-- make into a check box? Possibly with styling so its not a check -->
+            <div class="rounded border p-2 m-2">
+                @vs.Name
+            </div>
+        }
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <h5>Machine Types</h5>
+        @foreach (var vs in _example)
+        {
+            <!-- make into a check box? Possibly with styling so its not a check -->
+            <div class="rounded border p-2 m-2">
+                @vs.Name
+            </div>
+        }
+    </div>
+    <div class="col-md-4">
+        <h5>Stations</h5>
+        @foreach (var vs in _example)
+        {
+            <!-- make into a check box? Possibly with styling so its not a check -->
+            <div class="rounded border p-2 m-2">
+                @vs.Name
+            </div>
+        }
+    </div>
+</div>
 
 @code {
-    private List<ValueStreamResponseDto> _orderedValueStreams = new();
+    private List<ValueStreamResponseDto> _orderedValueStreams = [];
 
+    
+    private readonly List<DropDownListObject> _example =
+    [
+        new DropDownListObject(1, "bill"),
+        new DropDownListObject(2, "ted"),
+        new DropDownListObject(3, "sonny"),
+        new DropDownListObject(4, "cher")
+    ];
+    
     protected override async Task OnInitializedAsync()
     {
-        await LoadAndSortValueStreamsAsync();
+        // await ValueStreamService.GetAllAsync();
         ValueStreamService.OnChange += StateHasChanged;
     }
 
-    // TODO: Possibly move this to the data call? When would I need the list unsorted?
-    private async Task LoadAndSortValueStreamsAsync()
+    private void AddConfigComponent()
     {
-        await ValueStreamService.GetAllAsync();
-        _orderedValueStreams = ValueStreamService.ValueStreams
-            .OrderBy(vs => vs.Name)
-            .ToList();
+        
+    }
+
+    private async Task AddValueStream(ValueStreamCreateDto vs)
+    {
+        await ValueStreamService.CreateAsync(vs);
     }
 }

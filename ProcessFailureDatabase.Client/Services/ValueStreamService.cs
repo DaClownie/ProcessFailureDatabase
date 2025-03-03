@@ -21,7 +21,9 @@ public class ValueStreamService : IValueStreamService
             .GetFromJsonAsync<List<ValueStreamResponseDto>>("api/value-streams");
         if (result is not null)
         {
-            ValueStreams = result;
+            ValueStreams = result
+                .OrderBy(x => x.Name)
+                .ToList();
             OnChange?.Invoke();
         }
     }

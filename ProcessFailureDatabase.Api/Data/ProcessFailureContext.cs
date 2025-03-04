@@ -7,7 +7,7 @@ public partial class ProcessFailureContext : IdentityDbContext<User>
 {
     public ProcessFailureContext(
         DbContextOptions<ProcessFailureContext> options) : base(options) { }
-
+    
     // Redundant but provides space for AutoIncludes
     // formatted like builder.Entity<EntityName>().Navigation
     // (e => e.Object).AutoInclude();

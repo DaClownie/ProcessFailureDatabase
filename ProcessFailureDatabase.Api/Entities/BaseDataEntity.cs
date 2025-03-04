@@ -7,9 +7,9 @@ public class BaseDataEntity
 {
     [Key]
     public int Id { get; set; }
-    [Required, Column(TypeName = "DateTimeOffset")]
+    [Required, Column(TypeName = "timestamp with time zone")]
     public DateTimeOffset Created { get; set; } = DateTimeOffset.Now;
-    [Column(TypeName = "DateTimeOffset")]
+    [Column(TypeName = "timestamp with time zone")]
     public DateTimeOffset? Updated { get; set; }
     
     public List<User> Users { get; set; } = new();

@@ -1,6 +1,6 @@
 namespace ProcessFailureDatabase.Api.Entities;
 
-public class Touch
+public class Touch : BaseDataEntity
 {
     
 }

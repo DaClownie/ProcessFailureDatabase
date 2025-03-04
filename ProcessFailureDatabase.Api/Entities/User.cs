@@ -6,8 +6,8 @@ namespace ProcessFailureDatabase.Api.Entities;
 
 public class User : IdentityUser
 {
-    [Required, Column(TypeName = "DateTimeOffset")]
+    [Required, Column(TypeName = "timestamp with time zone")]
     public DateTimeOffset Created { get; set; } = DateTimeOffset.Now;
-    [Column(TypeName = "DateTimeOffset")]
+    [Column(TypeName = "timestamp with time zone")]
     public DateTimeOffset? Updated { get; set; }
 }

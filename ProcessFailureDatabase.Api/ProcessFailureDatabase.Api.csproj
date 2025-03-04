@@ -21,8 +21,4 @@
         <ProjectReference Include="..\ProcessFailureDatabase.Shared\ProcessFailureDatabase.Shared.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Repositories\" />
-    </ItemGroup>
-
 </Project>

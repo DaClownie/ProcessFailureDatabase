@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using ProcessFailureDatabase.Api.Services;
 using ProcessFailureDatabase.Shared.Models.ValueStream;
 
 namespace ProcessFailureDatabase.Api.Controllers;
@@ -7,15 +8,22 @@ namespace ProcessFailureDatabase.Api.Controllers;
 [ApiController]
 public class ValueStreamsController : ControllerBase
 {
-    public ValueStreamsController() { }
+    private readonly IValueStreamService _valueStreamService;
+
+    public ValueStreamsController(IValueStreamService valueStreamService)
+    {
+        _valueStreamService = valueStreamService;
+    }
 
     [HttpGet]
-    public ActionResult<List<ValueStreamResponseDto>?> GetValueStreams()
+    public async Task<ActionResult<List<ValueStreamResponseDto>>> GetValueStreams()
     {
-        // BUG: IMPLEMENT
-        List<ValueStreamResponseDto> values = new();
-
-        return values;
+        var result = await _valueStreamService.GetAllAsync();
+        if (result.Count is 0)
+        {
+            return NotFound();
+        }
+        return Ok(result);
     }
 
     // BUG: May not need? When would I return just a single ValueStream

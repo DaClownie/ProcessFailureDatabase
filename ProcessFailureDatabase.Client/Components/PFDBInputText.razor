@@ -1,0 +1,17 @@
+@using System.Diagnostics.CodeAnalysis
+@inherits InputBase<string>
+
+<label for="name">@Label</label>
+<input type="@Type" id="name" @bind="@CurrentValue" class="rounded border" />
+
+@code {
+    [Parameter] public required string Label { get; set; }
+    [Parameter] public string? Type { get; set; }
+    
+    protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out string result, [NotNullWhen(false)] out string? validationErrorMessage)
+    {
+        result = value ?? string.Empty;
+        validationErrorMessage = string.Empty;
+        return true;
+    }
+}

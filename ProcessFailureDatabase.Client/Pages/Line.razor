@@ -1,0 +1,33 @@
+@page "/l/{id:int}"
+@using ProcessFailureDatabase.Shared.Models.Component
+@inject NavigationManager NavigationManager
+<h3>Line</h3>
+
+<div class="col-md-4">
+    <h5>Machine Types</h5>
+    @foreach (var mt in _example)
+    {
+        <!-- make into a check box? Possibly with styling so its not a check -->
+        <div class="rounded border p-2 m-2" onclick="@(() => Open(mt.Id))">
+            @mt.Name
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter] public int Id { get; set; }
+    
+    private readonly List<DropDownListObject> _example =
+    [
+        new DropDownListObject(1, "bill"),
+        new DropDownListObject(2, "ted"),
+        new DropDownListObject(3, "sonny"),
+        new DropDownListObject(4, "cher")
+    ];
+    
+    private void Open(int id)
+    {
+        NavigationManager.NavigateTo($"/l/{id}");
+    }
+    
+}

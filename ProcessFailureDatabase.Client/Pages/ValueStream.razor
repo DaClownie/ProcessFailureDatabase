@@ -1,0 +1,45 @@
+@page "/vs/{id:int}"
+@using ProcessFailureDatabase.Client.Services
+@using ProcessFailureDatabase.Shared.Models.Component
+@using ProcessFailureDatabase.Shared.Models.ValueStream
+@inject IValueStreamService ValueStreamService
+@inject NavigationManager NavigationManager
+
+<h3>@_vs.Name</h3>
+<div class="col-md-4">
+    <h5>Lines</h5>
+    @foreach (var l in _example)
+    {
+        <!-- make into a check box? Possibly with styling so its not a check -->
+        <div class="rounded border p-2 m-2" onclick="@(() => Open(l.Id))">
+            @l.Name
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter] public int Id { get; set; }
+
+    private ValueStreamResponseDto _vs;
+    
+    protected override async Task OnInitializedAsync()
+    {
+        // await ValueStreamService.GetAllAsync();
+        // _vs = ValueStreamService.ValueStreams
+        //     .First(v => v.Id == Id);
+        ValueStreamService.OnChange += StateHasChanged;
+    }
+    
+    private readonly List<DropDownListObject> _example =
+    [
+        new DropDownListObject(1, "bill"),
+        new DropDownListObject(2, "ted"),
+        new DropDownListObject(3, "sonny"),
+        new DropDownListObject(4, "cher")
+    ];
+    
+    private void Open(int id)
+    {
+        NavigationManager.NavigateTo($"/l/{id}");
+    }
+}

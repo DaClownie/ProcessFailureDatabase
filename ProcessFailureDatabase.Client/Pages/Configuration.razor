@@ -3,30 +3,32 @@
 @using ProcessFailureDatabase.Shared.Models.Component
 @using ProcessFailureDatabase.Shared.Models.ValueStream
 @using ProcessFailureDatabase.Client.Components;
+@inject NavigationManager NavigationManager
 @inject IValueStreamService ValueStreamService
 <h3>Configuration</h3>
 <div class="row">
     <div class="col-md-4">
         <h5>
             Value Streams
-            <PFDBButton Icon="bi bi-plus-circle" OnClick="AddConfigComponent" />
+            <PFDBButton Icon="bi bi-plus-circle" OnClick="AddConfigComponentVisible" />
         </h5>
         @foreach (var vs in _example)
         {
             <!-- make into a check box? Possibly with styling so its not a check -->
-            <div class="rounded border p-2 m-2">
+            <div class="rounded border p-2 m-2" onclick="@(() => Open(vs.Id))">
                 @vs.Name
             </div>
         }
-        // render a new div here
-    </div>
-    <div class="col-md-4">
-        <h5>Lines</h5>
-        @foreach (var vs in _example)
+        @if (_addIsVisible)
         {
-            <!-- make into a check box? Possibly with styling so its not a check -->
             <div class="rounded border p-2 m-2">
-                @vs.Name
+                <EditForm Model="_newValueStream" OnValidSubmit="HandleSubmit">
+                    <span class="col-md-3">
+                        <PFDBInputText Label="Value Stream Name:" Type="text" />
+                        <PFDBButton Type="submit" Text="Save" OnClick="@(() => Add
+                (_newValueStream))" />
+                    </span>
+                </EditForm>
             </div>
         }
     </div>
@@ -55,7 +57,9 @@
 </div>
 
 @code {
-    private List<ValueStreamResponseDto> _orderedValueStreams = [];
+    private bool _addIsVisible = false;
+
+    private ValueStreamCreateDto _newValueStream = new();
 
     
     private readonly List<DropDownListObject> _example =
@@ -68,17 +72,40 @@
     
     protected override async Task OnInitializedAsync()
     {
-        // await ValueStreamService.GetAllAsync();
-        ValueStreamService.OnChange += StateHasChanged;
+        await UpdatePage();
     }
 
-    private void AddConfigComponent()
+    private void AddConfigComponentVisible()
     {
-        
+        _addIsVisible = true;
     }
 
-    private async Task AddValueStream(ValueStreamCreateDto vs)
+    private void Open(int id)
+    {
+        NavigationManager.NavigateTo($"/vs/{id}");
+    }
+
+    private async Task Add(ValueStreamCreateDto vs)
     {
         await ValueStreamService.CreateAsync(vs);
+        await UpdatePage();
+    }
+
+    private async Task HandleSubmit(EditContext arg)
+    {
+        await Add(_newValueStream);
+        ReloadPage();
+    }
+
+    private async Task UpdatePage()
+    {
+        await ValueStreamService.GetAllAsync();
+        ValueStreamService.OnChange += StateHasChanged;
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private void ReloadPage()
+    {
+        NavigationManager.NavigateTo("/configuration", true);
     }
 }
